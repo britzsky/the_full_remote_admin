@@ -20,7 +20,7 @@ type WsMessage = {
   message?: string;
 };
 
-const DEFAULT_WS = 'ws://52.64.151.137:8090/ws/control';
+const DEFAULT_WS = 'ws://52.64.151.137:8091/ws/control';
 const LOGIN_ENDPOINT = import.meta.env.VITE_LOGIN_ENDPOINT || 'http://52.64.151.137:8080/api/User/Login';
 const AUTH_STORAGE_KEY = 'remote-admin-authenticated';
 
