@@ -23,6 +23,7 @@ type WsMessage = {
 const DEFAULT_WS = 'ws://52.64.151.137:8091/ws/control';
 const LOGIN_ENDPOINT = import.meta.env.VITE_LOGIN_ENDPOINT || 'http://52.64.151.137:8080/api/User/Login';
 const AUTH_STORAGE_KEY = 'remote-admin-authenticated';
+const normalizeAgentId = (value: string) => value.replace(/\D/g, '').slice(0, 4);
 
 function LoginView({ onLogin }: { onLogin: () => void }) {
   const [userId, setUserId] = useState('');
@@ -188,17 +189,19 @@ function App() {
   };
 
   const connect = () => {
-    if (!agentId.trim()) {
+    const normalizedAgentId = normalizeAgentId(agentId);
+    if (normalizedAgentId.length !== 4) {
       alert('Agent ID를 입력하세요.');
       return;
     }
+    setAgentId(normalizedAgentId);
 
     const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
 
     ws.onopen = () => {
       setConnected(true);
-      ws.send(JSON.stringify({ type: 'REGISTER_ADMIN', agentId }));
+      ws.send(JSON.stringify({ type: 'REGISTER_ADMIN', agentId: normalizedAgentId }));
       appendLog('관리자 WebSocket 연결됨');
     };
 
@@ -235,7 +238,7 @@ function App() {
 
   const send = (payload: object) => {
     if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
-    wsRef.current.send(JSON.stringify({ agentId, ...payload }));
+    wsRef.current.send(JSON.stringify({ agentId: normalizeAgentId(agentId), ...payload }));
   };
 
   const sendPointer = (
@@ -281,7 +284,14 @@ function App() {
         </label>
         <label>
           Agent ID
-          <input value={agentId} onChange={e => setAgentId(e.target.value)} placeholder="Agent 창에 표시된 ID" />
+          <input
+            value={agentId}
+            onChange={e => setAgentId(normalizeAgentId(e.target.value))}
+            inputMode="numeric"
+            maxLength={4}
+            pattern="[0-9]{4}"
+            placeholder="4자리 숫자"
+          />
         </label>
         <div className="buttons">
           {!connected ? <button onClick={connect}>연결</button> : <button onClick={disconnect}>해제</button>}
