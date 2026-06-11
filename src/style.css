@@ -1,12 +1,17 @@
 * { box-sizing: border-box; }
 body { margin: 0; font-family: Arial, sans-serif; background: #f5f6f8; color: #222; }
-.page { max-width: 1600px; margin: 0 auto; padding: 20px; }
+.page { max-width: 1600px; margin: 0 auto; padding: 20px 20px 92px; }
 header { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; margin-bottom: 20px; }
 h1 { margin: 0 0 8px; }
 .panel, .status, .viewer, .log { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
 .login-page { min-height: 100vh; display: grid; place-items: center; padding: 20px; }
-.login-card { width: min(100%, 380px); display: grid; gap: 14px; background: white; border: 1px solid #ddd; border-radius: 8px; padding: 24px; box-shadow: 0 16px 50px rgba(16, 20, 24, .08); }
-.login-card p { margin: 0; color: #666; }
+.login-card { width: min(100%, 380px); display: grid; gap: 14px; background: white; border: 1px solid #ddd; border-radius: 8px; padding: 14px; box-shadow: 0 16px 50px rgba(16, 20, 24, .08); }
+.login-brand, .app-brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.login-brand { margin-bottom: 4px; }
+.login-brand img { width: 140px; height: auto; flex: 0 0 auto; }
+.login-brand h1 { margin: 0; font-size: 17px; line-height: 1.16; }
+.app-brand img { width: 122px; height: auto; flex: 0 0 auto; }
+.app-brand h1 { margin: 0; font-size: 21px; line-height: 1.2; }
 .login-card button { width: 100%; }
 .login-error { color: #c32626; font-size: 14px; }
 .grid { display: grid; grid-template-columns: 1.5fr 1fr auto; gap: 12px; align-items: end; }
@@ -25,7 +30,17 @@ button:disabled { cursor: not-allowed; opacity: .55; }
 .monitor-title small { color: #666; font-weight: 400; }
 .monitor-canvas { display: block; width: 100%; height: auto; border: 1px solid #ccc; cursor: crosshair; user-select: none; background: #111; }
 .empty { color: #777; }
-.controls { display: flex; gap: 8px; }
+.controls { position: sticky; bottom: 12px; z-index: 20; display: flex; gap: 8px; box-shadow: 0 12px 32px rgba(16, 20, 24, .16); }
 .controls input { flex: 1; }
 .log { font-family: Consolas, monospace; font-size: 13px; max-height: 180px; overflow: auto; background: #101418; color: #d8e1ea; }
-@media (max-width: 800px) { .grid, .controls { display: block; } input, button { width: 100%; margin-top: 8px; } }
+@media (max-width: 800px) {
+  .page { padding: 16px 16px 148px; }
+  header { grid-template-columns: 1fr; }
+  .login-brand img { width: 96px; }
+  .login-brand h1 { font-size: 17px; }
+  .app-brand img { width: 104px; }
+  .app-brand h1 { font-size: 19px; }
+  .grid, .controls { display: block; }
+  .controls { bottom: 8px; }
+  input, button { width: 100%; margin-top: 8px; }
+}

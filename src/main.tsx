@@ -62,13 +62,13 @@ function LoginView({ onLogin }: { onLogin: () => void }) {
   return (
     <main className="login-page">
       <form className="login-card" onSubmit={submit}>
-        <div>
-          <h1>Remote Admin</h1>
-          <p>Sign in to manage remote sessions.</p>
+        <div className="login-brand">
+          <img src="/thefull_logo.png" alt="The Full" />
+          <h1>The Full Remote Admin</h1>
         </div>
 
         <label>
-          User ID
+          아이디
           <input
             value={userId}
             onChange={e => setUserId(e.target.value)}
@@ -78,7 +78,7 @@ function LoginView({ onLogin }: { onLogin: () => void }) {
         </label>
 
         <label>
-          Password
+          비밀번호
           <input
             type="password"
             value={password}
@@ -272,7 +272,10 @@ function App() {
   return (
     <div className="page">
       <header>
-        <h1>Remote Admin MVP</h1>
+        <div className="app-brand">
+          <img src="/thefull_logo.png" alt="The Full" />
+          <h1>The Full Remote Admin View</h1>
+        </div>
         <button onClick={logout}>Log out</button>
         <p>Agent 사용자가 직접 허용한 PC에만 마우스와 키보드 명령을 보냅니다.</p>
       </header>
